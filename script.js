@@ -43,3 +43,31 @@ function createCard(item) {
 
   return el;
 }
+function formatDate(dateStr) {
+  const d = new Date(dateStr);
+  return d.toLocaleString('en-IN', {
+    dateStyle: 'medium',
+    timeStyle: 'short'
+  });
+}
+
+// Simple fake summary (replace with AI API later)
+function generateSummary(text) {
+  const clean = stripHtml(text);
+  const words = clean.split(' ').slice(0, 100).join(' ');
+  return words + '...';
+}
+
+// Generate random UPSC-style MCQ
+function generateMCQ(title) {
+  return `
+    <strong>UPSC Practice:</strong> Based on "${title}"<br><br>
+    Q. Which of the following statements best relates to this news?<br>
+    (a) It highlights a policy initiative by the Government.<br>
+    (b) It discusses a judicial interpretation.<br>
+    (c) It concerns a constitutional amendment.<br>
+    (d) It relates to an international report.<br><br>
+    <em>Answer:</em> (a) — This news covers government policy aspects, relevant under GS Paper II.<br>
+  `;
+}
+
