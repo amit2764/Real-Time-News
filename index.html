@@ -1,56 +1,45 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <title>Real-Time News</title>
-  <meta name="description" content="Real-Time News — live updates from Google News (UPSC, IAS, Civil Services, Current Affairs, PIB, Government Schemes). Auto-refresh, search, dark mode, GitHub Pages ready." />
-
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Favicons (simple) -->
-  <link rel="icon" href="data:;base64,iVBORw0KGgo=" />
-
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Real-Time News Portal</title>
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
   <header class="topbar">
     <div class="brand">
-      <h1>Real-Time News</h1>
-      <p class="tagline">UPSC · IAS · Civil Services · Current Affairs · PIB · Government Schemes</p>
+      <h1>Edulive News</h1>
+      <p class="tagline">Real-Time UPSC & Current Affairs</p>
     </div>
-
-    <div class="controls">
-      <label class="search">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M9.5 3a6.5 6.5 0 014.95 10.66l4.44 4.44-1.42 1.42-4.44-4.44A6.5 6.5 0 119.5 3zm0 2a4.5 4.5 0 100 9 4.5 4.5 0 000-9z"/></svg>
-        <input id="searchInput" type="search" placeholder="Search news (title, description, source)..." aria-label="Search news">
-      </label>
-
-      <button id="darkToggle" class="btn" aria-pressed="false" title="Toggle dark mode">
-        <svg class="icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-        <span class="sr-only">Toggle dark mode</span>
-      </button>
-    </div>
+    <div id="clock"></div>
+    <button id="darkToggle">🌙</button>
   </header>
 
   <main class="container">
-    <nav class="sections-nav" id="sectionsNav" aria-label="Sections">
-      <!-- Sections will be injected dynamically -->
+    <section class="intro">
+      <h2>Welcome to Real-Time News</h2>
+      <p>Stay updated with live UPSC, IAS, and government current affairs. Updated every few minutes — no refresh needed!</p>
+    </section>
+
+    <nav class="section-bar">
+      <button class="section-pill active" data-section="latest">Latest</button>
+      <button class="section-pill" data-section="economy">Economy</button>
+      <button class="section-pill" data-section="science">Science</button>
+      <button class="section-pill" data-section="sports">Sports</button>
     </nav>
 
-    <section id="newsArea" class="news-area" aria-live="polite">
-      <!-- News cards populated here -->
+    <section id="news-container" class="news-grid">
+      <p class="loading">Loading news...</p>
     </section>
   </main>
 
-  <footer class="footer">
-    <div>
-      <small>Auto-refresh every 5 minutes • Data pulled from Google News RSS (client-side). For production, use a server-side proxy to avoid CORS and rate limits.</small>
-    </div>
-    <div>
-      <small>Built for GitHub Pages — copy files to a repository and enable Pages (branch: main or gh-pages).</small>
-    </div>
+  <button id="toTopBtn">↑</button>
+
+  <footer>
+    <p>Powered by Edulive News • Fetching Real-Time Headlines</p>
   </footer>
 
-  <script src="script.js" defer></script>
+  <script src="script.js"></script>
 </body>
 </html>
