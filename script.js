@@ -5,69 +5,51 @@
 // - For production: use a server-side proxy or RSS-to-JSON service with an API key to avoid CORS & rate limits.
 
 // Sections and queries
-function createCard(item) {
-  const el = document.createElement('article');
-  el.className = 'card';
+// --- Theme Toggle ---
+const darkToggle = document.getElementById("darkToggle");
+darkToggle.addEventListener("click", () => {
+  const isDark = document.documentElement.classList.toggle("dark");
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+  alert(`Dark Mode ${isDark ? "Enabled 🌙" : "Disabled ☀️"}`);
+});
 
-  const img = document.createElement('img');
-  img.src = item.image || extractImageFromContent(item.content) || 'https://via.placeholder.com/640x360?text=No+Image';
-  img.alt = item.title || 'news image';
-
-  const content = document.createElement('div');
-  content.className = 'card-content';
-
-  const title = document.createElement('h3');
-  title.textContent = item.title || 'Untitled News';
-
-  const summary = document.createElement('p');
-  summary.textContent = generateSummary(item.description || item.content);
-
-  const mcq = document.createElement('div');
-  mcq.className = 'mcq';
-  mcq.innerHTML = generateMCQ(item.title);
-
-  const meta = document.createElement('div');
-  meta.className = 'meta';
-  meta.innerHTML = `
-    <span>${item.source || 'Unknown Source'}</span>
-    <span>${formatDate(item.pubDate)}</span>
-  `;
-
-  content.appendChild(title);
-  content.appendChild(summary);
-  content.appendChild(mcq);
-  content.appendChild(meta);
-
-  el.appendChild(img);
-  el.appendChild(content);
-
-  return el;
-}
-function formatDate(dateStr) {
-  const d = new Date(dateStr);
-  return d.toLocaleString('en-IN', {
-    dateStyle: 'medium',
-    timeStyle: 'short'
-  });
+// Apply saved theme on load
+if (localStorage.getItem("theme") === "dark") {
+  document.documentElement.classList.add("dark");
 }
 
-// Simple fake summary (replace with AI API later)
-function generateSummary(text) {
-  const clean = stripHtml(text);
-  const words = clean.split(' ').slice(0, 100).join(' ');
-  return words + '...';
+// --- Clock ---
+function updateClock() {
+  const clock = document.getElementById("clock");
+  const now = new Date();
+  clock.textContent = now.toLocaleTimeString();
 }
+setInterval(updateClock, 1000);
+updateClock();
 
-// Generate random UPSC-style MCQ
-function generateMCQ(title) {
-  return `
-    <strong>UPSC Practice:</strong> Based on "${title}"<br><br>
-    Q. Which of the following statements best relates to this news?<br>
-    (a) It highlights a policy initiative by the Government.<br>
-    (b) It discusses a judicial interpretation.<br>
-    (c) It concerns a constitutional amendment.<br>
-    (d) It relates to an international report.<br><br>
-    <em>Answer:</em> (a) — This news covers government policy aspects, relevant under GS Paper II.<br>
-  `;
-}
+// --- Scroll to Top ---
+const toTopBtn = document.getElementById("toTopBtn");
+window.addEventListener("scroll", () => {
+  toTopBtn.style.display = window.scrollY > 400 ? "block" : "none";
+});
+toTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
+
+// --- News Fetch Simulation (replace with your API later) ---
+const newsContainer = document.getElementById("news-container");
+setTimeout(() => {
+  const sampleNews = [
+    { title: "Government Launches New UPSC Mentorship Program", content: "Aimed to improve access for rural aspirants." },
+    { title: "RBI Policy Update", content: "Repo rate unchanged for the 3rd consecutive quarter." },
+    { title: "ISRO Announces New Mission", content: "India to launch a Venus orbiter in 2026." },
+    { title: "Sports News", content: "India clinches Asia Cup title with a dominant win." }
+  ];
+  newsContainer.innerHTML = sampleNews.map(news => `
+    <div class="card">
+      <h3>${news.title}</h3>
+      <p>${news.content}</p>
+    </div>
+  `).join('');
+}, 1000);
 
