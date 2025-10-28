@@ -1,4 +1,4 @@
-const API_KEY = "YOUR_NEWSDATA_API_KEY"; // Replace this
+const API_KEY = "pub_79057615a68e4fa8901c04016f6c1d54"; // Replace this
 const API_URL = `https://newsdata.io/api/1/news?country=in&language=en&category=top&apikey=${API_KEY}`;
 const newsArea = document.getElementById("newsArea");
 const searchInput = document.getElementById("searchInput");
